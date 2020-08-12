@@ -1,52 +1,58 @@
----
-title: mmmwiki
-date: 2010-08-12 10:40:23
-tags:
-
----
-
 # 旋转卡壳
 
-前置芝士：叉积，极角排序
+前置芝士：[叉积](../math/vector.md)，[极角排序](../geometry/2d.md)
 
-~~旋 (xuán) 转 (zhuàn) 卡 (qia) 壳 (qiào)~~
-
-## 一句话总结
+Xuán zhuǎn qiǎ ké
 
 求凸包的直径一种方法
 
 ## 实现
 
-首先我们求出来一个凸包（绿色），然后才能找直径（红色）~~（bushi）~~
 
-![](https://cdn.luogu.com.cn/upload/image_hosting/8ehlpvc1.png)
 
-~~其实只要找到最长距离的两个点就可以了~~
+首先我们求出来一个凸包（绿色），然后才能找直径（红色）
 
-找直径的方式：找两个点，做一条平行线，然后比较距离~~(其实并没有什么用，但是我们要引入旋转卡壳)~~
+![](./images/rotating-calipers1.png)
 
-![](https://cdn.luogu.com.cn/upload/image_hosting/paozftbk.png)
+
+
+找直径的方式：找两个点，做一条平行线，然后比较距离
+
+![](./images/rotating-calipers2.png)
+
+
 
 实际上我们可以转化为两个相邻的点的线段所在的直线到最远的点的距离,这样单纯的算距离就变成了求三角形面积。
 
-![](https://cdn.luogu.com.cn/upload/image_hosting/7cyr6wax.png)
 
-我们在做无用功？
 
-不是，于是精彩的来了，（如下图）CB 为底的三角形面积是单峰函数（就算不是也只有两个点能让这个三角形取最大值），我们扫描出来了 $CB$ 为底的最大值，比较 $GC,GB$ 的距离，然后逆时针上去( $E \to F \to B \to ...$ 以此类推)
+![](./images/rotating-calipers3.png)
 
-这时候对底边面积最大的点一定在逆时针移动（用手推一推就好了）
 
-这样不难发现三角形的顶点（这里姑且认为是临边不与这条平行线重合的点）不会再回到原来的点。
 
-因此时间复杂度达到了美妙的 $O(Nlog_2N)$  （排序占了大头）
+看上去我们把这些东西做麻烦了许多，实际手推一下，得到以 $CB$ 为底的面积最大值的时候，会按照 $C \to W \to D\to G $ 的方式（即为逆时针的方式）得到使三角形有最大面积的的点 $G$ ，然后找以 $WC$ 为底的三角形面积最大值的时候，也只会按照逆时针的方式得到使三角形面积最大的点 $E$（ 我们认为 $EF \verb|\\| WC$ ）,使得面积最大的点最多只会有两个，而且下一个$WD$ 取得最大值绝对不会是 $E$  而会从 $F$  开始，因此我们可以记录上一次决策的位置然后不断向逆时针防线移动。
+
+不难发现三角形的顶点（这里姑且认为是临边不与这条平行线重合的点） 不会再回到原来的点。
+
+![](./images/rotating-calipers4.gif)
+
+因此时间复杂度达到了美妙的 $O(n\log n)$   (因为我们做了一个排序)
 
 ## 代码 
 
 ```cpp
-#include<touwenjian.h>
+#include<stdio.h>
+#include<iostream>
+#include<cmath>
+#include<cstring>
+#include<queue>
+#include<stack>
+#include<vector>
+#include<set>
+#include<map>
+#include<algorithm>
 
-#define int long long
+#define int long long //陋习
 
 using namespace std;
 
@@ -128,6 +134,12 @@ signed main()
 
 [模板题](https://www.luogu.com.cn/problem/P1452)
 
-[P3187 [HNOI2007]最小矩形覆盖](https://www.luogu.com.cn/problem/P3187)
+[ 最小矩形覆盖](https://www.luogu.com.cn/problem/P3187)
 
-[UVA10173 Smallest Bounding Rectangle](https://www.luogu.com.cn/problem/UVA10173)
+[Smallest Bounding Rectangle](https://www.luogu.com.cn/problem/UVA10173)
+
+
+
+## 引用
+
+动图 https://img-blog.csdn.net/20160305153623628
