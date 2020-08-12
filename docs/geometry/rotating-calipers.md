@@ -12,13 +12,13 @@ Xuán zhuǎn qiǎ ké
 
 首先我们求出来一个凸包（绿色），然后才能找直径（红色）
 
-![](/geometry/images/rotating-calipers1.png)
+![](./images/rotating-calipers1.png)
 
 
 
 找直径的方式：找两个点，做一条平行线，然后比较距离
 
-![](/geometry/images/rotating-calipers2.png)
+![](./images/rotating-calipers2.png)
 
 
 
@@ -26,7 +26,7 @@ Xuán zhuǎn qiǎ ké
 
 
 
-![](/geometry/images/rotating-calipers3.png)
+![](./images/rotating-calipers3.png)
 
 
 
@@ -34,7 +34,7 @@ Xuán zhuǎn qiǎ ké
 
 不难发现三角形的顶点（这里姑且认为是临边不与这条平行线重合的点） 不会再回到原来的点。
 
-![](/geometry/images/rotating-calipers4.gif)
+![](./images/rotating-calipers4.gif)
 
 因此时间复杂度达到了美妙的 $O(n\log n)$   (因为我们做了一个排序)
 
